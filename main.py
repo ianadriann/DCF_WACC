@@ -45,8 +45,8 @@ IS = [is_1, is_2, is_3, is_4]
 
 
 revenue_g = (IS[0]['revenue'] - IS[1]['revenue']) / IS[1]['revenue']
-revenue_g1 = ((IS[0]['revenue'] / IS[3]['revenue'])**(1/3))-1
-revenue_g2 = ((IS[0]['revenue'] / IS[3]['revenue'])-1)/3
+#revenue_g = ((IS[0]['revenue'] / IS[3]['revenue'])**(1/3))-1
+#revenue_g2 = ((IS[0]['revenue'] / IS[3]['revenue'])-1)/3
 income_statement = pd.DataFrame.from_dict(IS[0],orient='index')
 income_statement = income_statement[8:36]
 income_statement.columns = ['current_year']
@@ -64,5 +64,4 @@ tahun = 3
 a = (((19000/10000)**(1/3))-1)*100
 '''
 print(revenue_g*100)
-print(revenue_g1*100)
-print(revenue_g2*100)
+
