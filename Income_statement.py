@@ -5,9 +5,15 @@ def date_is_annual(input1, I_S_totalOtherIncomeExpensesNet, I_S, ticker_code):
     elif input1 == 'yearago':
         year = 1
         input2 = -2
-    elif input1 ==  'twoyearago':
+    elif input1 ==  'years2ago':
         year = 2
         input2 = -3
+    elif input1 ==  'years3ago':
+        year = 3
+        input2 = -4
+    elif input1 ==  'years4ago':
+        year = 4
+        input2 = -5
     else:
         print('out of index')
     #old
