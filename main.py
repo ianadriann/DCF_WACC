@@ -20,7 +20,7 @@ import RFandICA
 url_financials_is = 'https://finance.yahoo.com/quote/{}/financials?p={}'
 
 #Variable
-ticker_code = 'AAPL'
+ticker_code = 'AAPL' #aapl= 229.69779556090393
 
 #headers
 headers = { 'User-Agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36' }
@@ -47,7 +47,7 @@ IS = [is_1, is_2]
 
 revenue_g = (IS[0]['revenue'] - IS[1]['revenue']) / IS[1]['revenue']
 income_statement = pd.DataFrame.from_dict(IS[0],orient='index')
-income_statement = income_statement[8:36]
+income_statement = income_statement #[8:36] #if u allow all variable in income_statement.py
 income_statement.columns = ['current_year']
 income_statement['as_%_of_revenue'] = income_statement / income_statement.iloc[0]
 
@@ -79,7 +79,7 @@ bs_2 = balancesheet.date_bs_annual('yearago', I_S_totalOtherIncomeExpensesNet, B
 
 BS = [bs_1,bs_2]
 balance_sheet = pd.DataFrame.from_dict(BS[0],orient='index')
-balance_sheet = balance_sheet[8:-2]
+balance_sheet = balance_sheet#[8:-2] #if u allow all variable in income_statement.py
 balance_sheet.columns = ['current_year']
 balance_sheet['as_%_of_revenue'] = balance_sheet / income_statement['current_year'].iloc[0]
 
@@ -123,17 +123,38 @@ index_SP500 = data.DataReader("^GSPC", start=startdate + timedelta(days=1), end=
 #index_IHSG = data.DataReader("^JKSE", start=start, end=end, data_source='yahoo')['Adj Close']
 cost_of_equity = RFandICA.costofequity(RF, beta, index_SP500)
 
-WACC = RFandICA.waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost_of_debt)
+WACC1 = RFandICA.waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost_of_debt)
+WACC = WACC1[0]
+
+#Net Present Value of the Forecasted Free Cash Flows
+FCF_List = CF_forec.iloc[-1].values.tolist()
+npv = npf.npv(WACC, FCF_List)
+
+#Terminal value
+LTGrowth = 0.02
+Terminal_value = (CF_forecast['next_5_year']['FCF'] * (1+ LTGrowth)) /(WACC  - LTGrowth)
+Terminal_value_Discounted = Terminal_value/(1+WACC)**4
+
+#Calculating ticker_code Target Price
+target_equity_value = Terminal_value_Discounted + npv
+debt = balance_sheet['current_year']['totalDebt']
+target_value = target_equity_value - debt
+numbre_of_shares = I_S['annualBasicAverageShares'][-1]['reportedValue']['raw']
+target_price_per_share = target_value/numbre_of_shares
 
 print('revenue_g = ', revenue_g)
 print('RF = ', RF)
 print('cost_of_debt = ', cost_of_debt)
 print('cost_of_equity = ', cost_of_equity)
 print('WACC =', WACC)
-
-
+print('npv = ', npv)
+print('Terminal_value_Discounted =', Terminal_value_Discounted)
 
 print('='*20)
+print('the forecast is based on the following assumptions: '+ 'revenue growth: ' + str(revenue_g) + ' Cost of Capital: ' + str(WACC) )
+print('perpetuity growth: ' + str(LTGrowth)  )
+print((f'{ticker_code}') + ' forecasted price per stock is ' + str(target_price_per_share) )
 
+print('totalDebt = ',WACC1[1])
 
 

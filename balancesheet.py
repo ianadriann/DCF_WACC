@@ -295,6 +295,7 @@ def date_bs_annual(input1, I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_cod
 
     #======================
     balance_sheet_statement = {}
+    ''' 
     balance_sheet_statement['date'] = date 
     balance_sheet_statement['symbol'] = ticker_code
     balance_sheet_statement['reportedCurrency'] = reportedCurrency
@@ -303,6 +304,7 @@ def date_bs_annual(input1, I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_cod
     balance_sheet_statement['acceptedDate'] = 'xxxxxx'
     balance_sheet_statement['calendarYear'] = date
     balance_sheet_statement['period'] = 'FY'
+    '''
     balance_sheet_statement['cashAndCashEquivalents'] =  cashAndCashEquivalents
     balance_sheet_statement['shortTermInvestments'] = shortTermInvestments
     balance_sheet_statement['cashAndShortTermInvestments'] = cashAndShortTermInvestments
@@ -347,6 +349,8 @@ def date_bs_annual(input1, I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_cod
     balance_sheet_statement['totalInvestments'] = 0
     balance_sheet_statement['totalDebt'] = totalDebt
     balance_sheet_statement['netDebt'] = netDebt
+    '''
     balance_sheet_statement['link'] = 'w'
     balance_sheet_statement['finallink'] = 'w'
+    '''
     return balance_sheet_statement

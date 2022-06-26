@@ -97,7 +97,7 @@ def waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost
     equity_to = totalStockholdersEquity / (totalDebt + totalStockholdersEquity)
 
     WACC = (cost_of_debt*(1-ETR)*Debt_to) + (cost_of_equity*equity_to)
-    return WACC
+    return [WACC, totalDebt]
 
 
 
