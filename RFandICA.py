@@ -84,7 +84,7 @@ def costofequity(RF, beta, SP500):
     cost_of_equity = RF+(beta*(SP500yearlyreturn - RF))
     return cost_of_equity
 
-def waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost_of_debt):
+def waccDate(IS, ticker_code, B_S_start, cost_of_equity, cost_of_debt):
     netIncome = IS[0]['netIncome']
     incomeBeforeTax = IS[0]['incomeBeforeTax']
     totaltax = incomeBeforeTax - netIncome
@@ -92,12 +92,12 @@ def waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost
     ticker= yf.Ticker(ticker_code)
     info_comp = ticker.info
     totalDebt = info_comp['totalDebt']
-    totalStockholdersEquity = balanceSheetHistoryQuarterly['balanceSheetStatements'][0]['totalStockholderEquity']['raw']
+    totalStockholdersEquity = B_S_start['QuoteSummaryStore']['balanceSheetHistoryQuarterly']['balanceSheetStatements'][0]['totalStockholderEquity']['raw']
     Debt_to = totalDebt / (totalDebt + totalStockholdersEquity)
     equity_to = totalStockholdersEquity / (totalDebt + totalStockholdersEquity)
 
     WACC = (cost_of_debt*(1-ETR)*Debt_to) + (cost_of_equity*equity_to)
-    return [WACC, totalDebt]
+    return [WACC, totalDebt, ETR]
 
 
 

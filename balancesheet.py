@@ -1,4 +1,7 @@
-def date_bs_annual(input1, I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_code):
+
+
+
+def date_bs_annual(input1, B_S_start, I_S_start, ticker_code):
     if input1 == 'lastyear':
         year = 0
         input2 = -1
@@ -16,282 +19,282 @@ def date_bs_annual(input1, I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_cod
         input2 = -5
     else:
         print('out of index')
-    date = I_S_totalOtherIncomeExpensesNet[year]['endDate']['fmt']
-    reportedCurrency = I_S['annualOperatingExpense'][input2]['currencyCode']
+    date = I_S_start['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory'][year]['endDate']['fmt']
+    reportedCurrency = I_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOperatingExpense'][input2]['currencyCode']
 
-    if B_S['annualCashAndCashEquivalents'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashAndCashEquivalents'] == []:
         cashAndCashEquivalents = 0
-    elif B_S['annualCashAndCashEquivalents'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashAndCashEquivalents'][input2] == None:
         cashAndCashEquivalents = 0
     else:
-        cashAndCashEquivalents = B_S['annualCashAndCashEquivalents'][input2]['reportedValue']['raw']
+        cashAndCashEquivalents = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashAndCashEquivalents'][input2]['reportedValue']['raw']
 
 
-    if B_S['annualOtherShortTermInvestments'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherShortTermInvestments'] == []:
         shortTermInvestments = 0
-    elif B_S['annualOtherShortTermInvestments'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherShortTermInvestments'][input2] == None:
         shortTermInvestments = 0
     else:
-        shortTermInvestments = B_S['annualOtherShortTermInvestments'][input2]['reportedValue']['raw']
+        shortTermInvestments = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherShortTermInvestments'][input2]['reportedValue']['raw']
 
-    if B_S['annualCashCashEquivalentsAndShortTermInvestments'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashCashEquivalentsAndShortTermInvestments'] == []:
         cashAndShortTermInvestments = 0
-    elif B_S['annualCashCashEquivalentsAndShortTermInvestments'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashCashEquivalentsAndShortTermInvestments'][input2] == None:
         cashAndShortTermInvestments = 0
     else:
-        cashAndShortTermInvestments = B_S['annualCashCashEquivalentsAndShortTermInvestments'][input2]['reportedValue']['raw']
+        cashAndShortTermInvestments = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCashCashEquivalentsAndShortTermInvestments'][input2]['reportedValue']['raw']
 
-    if B_S['annualReceivables'] == []:
+    if B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'] == []:
         netReceivables = 0
-    elif B_S['annualReceivables'][input2] == None:
+    elif B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year] == None:
         netReceivables = 0
     else:
-        netReceivables = B_S['annualReceivables'][input2]['reportedValue']['raw']
+        netReceivables = B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year]['netReceivables']['raw']
 
-    if B_S['annualInventory'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInventory'] == []:
         inventory = 0
-    elif B_S['annualInventory'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInventory'][input2] == None:
         inventory = 0
     else:
-        inventory = B_S['annualInventory'][input2]['reportedValue']['raw']
+        inventory = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInventory'][input2]['reportedValue']['raw']
 
-    if B_S['annualOtherCurrentAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentAssets'] == []:
         otherCurrentAssets = 0
-    elif B_S['annualOtherCurrentAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentAssets'][input2] == None:
         otherCurrentAssets = 0
     else:
-        otherCurrentAssets = B_S['annualOtherCurrentAssets'][input2]['reportedValue']['raw']
+        otherCurrentAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualCurrentAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentAssets'] == []:
         totalCurrentAssets = 0
-    elif B_S['annualCurrentAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentAssets'][input2] == None:
         totalCurrentAssets = 0
     else:
-        totalCurrentAssets = B_S['annualCurrentAssets'][input2]['reportedValue']['raw']
+        totalCurrentAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualNetPPE'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'] == []:
         propertyPlantEquipmentNet = 0
-    elif B_S['annualNetPPE'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'][input2] == None:
         propertyPlantEquipmentNet = 0
     else:
-        propertyPlantEquipmentNet = B_S['annualNetPPE'][input2]['reportedValue']['raw']
+        propertyPlantEquipmentNet = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'][input2]['reportedValue']['raw']
 
-    if B_S['annualGoodwill'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwill'] == []:
         goodwill = 0
-    elif B_S['annualGoodwill'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwill'][input2] == None:
         goodwill = 0
     else:
-        goodwill = B_S['annualGoodwill'][input2]['reportedValue']['raw']
+        goodwill = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwill'][input2]['reportedValue']['raw']
 
-    if B_S['annualOtherIntangibleAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherIntangibleAssets'] == []:
         intangibleAssets = 0
-    elif B_S['annualOtherIntangibleAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherIntangibleAssets'][input2] == None:
         intangibleAssets = 0
     else:
-        intangibleAssets = B_S['annualOtherIntangibleAssets'][input2]['reportedValue']['raw']
+        intangibleAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherIntangibleAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualGoodwillAndOtherIntangibleAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwillAndOtherIntangibleAssets'] == []:
         goodwillAndIntangibleAssets = 0
-    elif B_S['annualGoodwillAndOtherIntangibleAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwillAndOtherIntangibleAssets'][input2] == None:
         goodwillAndIntangibleAssets = 0
     else:
-        goodwillAndIntangibleAssets = B_S['annualGoodwillAndOtherIntangibleAssets'][input2]['reportedValue']['raw']
+        goodwillAndIntangibleAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwillAndOtherIntangibleAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualInvestmentsAndAdvances'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInvestmentsAndAdvances'] == []:
         longTermInvestments = 0
-    elif B_S['annualInvestmentsAndAdvances'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInvestmentsAndAdvances'][input2] == None:
         longTermInvestments = 0
     else:
-        longTermInvestments = B_S['annualInvestmentsAndAdvances'][input2]['reportedValue']['raw']
+        longTermInvestments = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualInvestmentsAndAdvances'][input2]['reportedValue']['raw']
 
-    if B_S['annualNonCurrentDeferredTaxesAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesAssets'] == []:
         taxAssets = 0
-    elif B_S['annualNonCurrentDeferredTaxesAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesAssets'][input2] == None:
         taxAssets = 0
     else:
-        taxAssets = B_S['annualNonCurrentDeferredTaxesAssets'][input2]['reportedValue']['raw']
+        taxAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualOtherNonCurrentAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherNonCurrentAssets'] == []:
         otherNonCurrentAssets = 0
-    elif B_S['annualOtherNonCurrentAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherNonCurrentAssets'][input2] == None:
         otherNonCurrentAssets = 0
     else:
-        otherNonCurrentAssets = B_S['annualOtherNonCurrentAssets'][input2]['reportedValue']['raw']
+        otherNonCurrentAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherNonCurrentAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalNonCurrentAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentAssets'] == []:
         totalNonCurrentAssets = 0
-    elif B_S['annualTotalNonCurrentAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentAssets'][input2] == None:
         totalNonCurrentAssets = 0
     else:
-        totalNonCurrentAssets = B_S['annualTotalNonCurrentAssets'][input2]['reportedValue']['raw']
+        totalNonCurrentAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualCurrentDeferredAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredAssets'] == []:
         otherAssets = 0
-    elif B_S['annualCurrentDeferredAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredAssets'][input2] == None:
         otherAssets = 0
     else:
-        otherAssets = B_S['annualCurrentDeferredAssets'][input2]['reportedValue']['raw']
+        otherAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalAssets'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalAssets'] == []:
         totalAssets = 0
-    elif B_S['annualTotalAssets'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalAssets'][input2] == None:
         totalAssets = 0
     else:
-        totalAssets = B_S['annualTotalAssets'][input2]['reportedValue']['raw']
+        totalAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalAssets'][input2]['reportedValue']['raw']
 
-    if B_S['annualAccountsPayable'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'] == []:
         accountPayables = 0
-    elif B_S['annualAccountsPayable'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'][input2] == None:
         accountPayables = 0
     else:
-        accountPayables = B_S['annualAccountsPayable'][input2]['reportedValue']['raw']
+        accountPayables = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'][input2]['reportedValue']['raw']
 
-    if B_S['annualCurrentDebtAndCapitalLeaseObligation'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDebtAndCapitalLeaseObligation'] == []:
         shortTermDebt = 0
-    elif B_S['annualCurrentDebtAndCapitalLeaseObligation'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDebtAndCapitalLeaseObligation'][input2] == None:
         shortTermDebt = 0
     else:
-        shortTermDebt = B_S['annualCurrentDebtAndCapitalLeaseObligation'][input2]['reportedValue']['raw']
+        shortTermDebt = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDebtAndCapitalLeaseObligation'][input2]['reportedValue']['raw']
 
-    if B_S['annualIncomeTaxPayable'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualIncomeTaxPayable'] == []:
         taxPayables = 0
-    elif B_S['annualIncomeTaxPayable'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualIncomeTaxPayable'][input2] == None:
         taxPayables = 0
     else:
-        taxPayables = B_S['annualIncomeTaxPayable'][input2]['reportedValue']['raw']
+        taxPayables = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualIncomeTaxPayable'][input2]['reportedValue']['raw']
 
-    if B_S['annualCurrentDeferredRevenue'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredRevenue'] == []:
         deferredRevenue = 0
-    elif B_S['annualCurrentDeferredRevenue'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredRevenue'][input2] == None:
         deferredRevenue = 0
     else:
-        deferredRevenue = B_S['annualCurrentDeferredRevenue'][input2]['reportedValue']['raw']
+        deferredRevenue = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDeferredRevenue'][input2]['reportedValue']['raw']
 
-    if B_S['annualOtherCurrentLiabilities'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentLiabilities'] == []:
         otherCurrentLiabilities = 0
-    elif B_S['annualOtherCurrentLiabilities'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentLiabilities'][input2] == None:
         otherCurrentLiabilities = 0
     else:
-        otherCurrentLiabilities = B_S['annualOtherCurrentLiabilities'][input2]['reportedValue']['raw']
+        otherCurrentLiabilities = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualOtherCurrentLiabilities'][input2]['reportedValue']['raw']
 
-    if B_S['annualCurrentLiabilities'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentLiabilities'] == []:
         totalCurrentLiabilities = 0
-    elif B_S['annualCurrentLiabilities'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentLiabilities'][input2] == None:
         totalCurrentLiabilities = 0
     else:
-        totalCurrentLiabilities = B_S['annualCurrentLiabilities'][input2]['reportedValue']['raw']
+        totalCurrentLiabilities = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentLiabilities'][input2]['reportedValue']['raw']
 
-    if B_S['annualLongTermDebt'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualLongTermDebt'] == []:
         longTermDebt = 0
-    elif B_S['annualLongTermDebt'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualLongTermDebt'][input2] == None:
         longTermDebt = 0
     else:
-        longTermDebt = B_S['annualLongTermDebt'][input2]['reportedValue']['raw']
+        longTermDebt = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualLongTermDebt'][input2]['reportedValue']['raw']
 
-    if B_S['annualNonCurrentDeferredRevenue'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredRevenue'] == []:
         deferredRevenueNonCurrent = 0
-    elif B_S['annualNonCurrentDeferredRevenue'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredRevenue'][input2] == None:
         deferredRevenueNonCurrent = 0
     else:
-        deferredRevenueNonCurrent = B_S['annualNonCurrentDeferredRevenue'][input2]['reportedValue']['raw']
+        deferredRevenueNonCurrent = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredRevenue'][input2]['reportedValue']['raw']
 
-    if B_S['annualNonCurrentDeferredTaxesLiabilities'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesLiabilities'] == []:
         deferredTaxLiabilitiesNonCurrent = 0
-    elif B_S['annualNonCurrentDeferredTaxesLiabilities'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesLiabilities'][input2] == None:
         deferredTaxLiabilitiesNonCurrent = 0
     else:
-        deferredTaxLiabilitiesNonCurrent = B_S['annualNonCurrentDeferredTaxesLiabilities'][input2]['reportedValue']['raw']
+        deferredTaxLiabilitiesNonCurrent = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNonCurrentDeferredTaxesLiabilities'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalNonCurrentLiabilitiesNetMinorityInterest'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentLiabilitiesNetMinorityInterest'] == []:
         totalNonCurrentLiabilities = 0
-    elif B_S['annualTotalNonCurrentLiabilitiesNetMinorityInterest'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentLiabilitiesNetMinorityInterest'][input2] == None:
         totalNonCurrentLiabilities = 0
     else:
-        totalNonCurrentLiabilities = B_S['annualTotalNonCurrentLiabilitiesNetMinorityInterest'][input2]['reportedValue']['raw']
+        totalNonCurrentLiabilities = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalNonCurrentLiabilitiesNetMinorityInterest'][input2]['reportedValue']['raw']
 
-    if B_S['annualCapitalLeaseObligations'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCapitalLeaseObligations'] == []:
         capitalLeaseObligations = 0
-    elif B_S['annualCapitalLeaseObligations'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCapitalLeaseObligations'][input2] == None:
         capitalLeaseObligations = 0
     else:
-        capitalLeaseObligations = B_S['annualCapitalLeaseObligations'][input2]['reportedValue']['raw']
+        capitalLeaseObligations = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCapitalLeaseObligations'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalLiabilitiesNetMinorityInterest'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalLiabilitiesNetMinorityInterest'] == []:
         totalLiabilities = 0
-    elif B_S['annualTotalLiabilitiesNetMinorityInterest'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalLiabilitiesNetMinorityInterest'][input2] == None:
         totalLiabilities = 0
     else:
-        totalLiabilities = B_S['annualTotalLiabilitiesNetMinorityInterest'][input2]['reportedValue']['raw']
+        totalLiabilities = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalLiabilitiesNetMinorityInterest'][input2]['reportedValue']['raw']
 
-    if B_S['annualPreferredStock'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualPreferredStock'] == []:
         preferredStock = 0
-    elif B_S['annualPreferredStock'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualPreferredStock'][input2] == None:
         preferredStock = 0
     else:
-        preferredStock = B_S['annualPreferredStock'][input2]['reportedValue']['raw']
+        preferredStock = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualPreferredStock'][input2]['reportedValue']['raw']
 
-    if B_S['annualCommonStock'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCommonStock'] == []:
         commonStock = 0
-    elif B_S['annualCommonStock'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCommonStock'][input2] == None:
         commonStock = 0
     else:
-        commonStock = B_S['annualCommonStock'][input2]['reportedValue']['raw']
+        commonStock = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCommonStock'][input2]['reportedValue']['raw']
 
-    if B_S['annualRetainedEarnings'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualRetainedEarnings'] == []:
         retainedEarnings = 0
-    elif B_S['annualRetainedEarnings'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualRetainedEarnings'][input2] == None:
         retainedEarnings = 0
     else:
-        retainedEarnings = B_S['annualRetainedEarnings'][input2]['reportedValue']['raw']
+        retainedEarnings = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualRetainedEarnings'][input2]['reportedValue']['raw']
 
-    if B_S['annualGainsLossesNotAffectingRetainedEarnings'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGainsLossesNotAffectingRetainedEarnings'] == []:
         accumulatedOtherComprehensiveIncomeLoss = 0
-    elif B_S['annualGainsLossesNotAffectingRetainedEarnings'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGainsLossesNotAffectingRetainedEarnings'][input2] == None:
         accumulatedOtherComprehensiveIncomeLoss = 0
     else:
-        accumulatedOtherComprehensiveIncomeLoss = B_S['annualGainsLossesNotAffectingRetainedEarnings'][input2]['reportedValue']['raw']
+        accumulatedOtherComprehensiveIncomeLoss = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGainsLossesNotAffectingRetainedEarnings'][input2]['reportedValue']['raw']
 
-    if B_S['annualTreasuryStock'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTreasuryStock'] == []:
         othertotalStockholdersEquity = 0
-    elif B_S['annualTreasuryStock'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTreasuryStock'][input2] == None:
         othertotalStockholdersEquity = 0
     else:
-        othertotalStockholdersEquity = -B_S['annualTreasuryStock'][input2]['reportedValue']['raw']
+        othertotalStockholdersEquity = -B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTreasuryStock'][input2]['reportedValue']['raw']
 
-    if B_S['annualStockholdersEquity'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualStockholdersEquity'] == []:
         totalStockholdersEquity = 0
-    elif B_S['annualStockholdersEquity'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualStockholdersEquity'][input2] == None:
         totalStockholdersEquity = 0
     else:
-        totalStockholdersEquity = B_S['annualStockholdersEquity'][input2]['reportedValue']['raw']
+        totalStockholdersEquity = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualStockholdersEquity'][input2]['reportedValue']['raw']
 
-    if B_S['annualMinorityInterest'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualMinorityInterest'] == []:
         minorityInterest = 0
-    elif B_S['annualMinorityInterest'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualMinorityInterest'][input2] == None:
         minorityInterest = 0
     else:
-        minorityInterest = B_S['annualMinorityInterest'][input2]['reportedValue']['raw']
+        minorityInterest = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualMinorityInterest'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalEquityGrossMinorityInterest'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalEquityGrossMinorityInterest'] == []:
         totalEquity = 0
-    elif B_S['annualTotalEquityGrossMinorityInterest'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalEquityGrossMinorityInterest'][input2] == None:
         totalEquity = 0
     else:
-        totalEquity = B_S['annualTotalEquityGrossMinorityInterest'][input2]['reportedValue']['raw']
+        totalEquity = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalEquityGrossMinorityInterest'][input2]['reportedValue']['raw']
 
-    if B_S['annualTotalDebt'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalDebt'] == []:
         totalDebt = 0
-    elif B_S['annualTotalDebt'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalDebt'][input2] == None:
         totalDebt = 0
     else:
-        totalDebt = B_S['annualTotalDebt'][input2]['reportedValue']['raw']
+        totalDebt = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalDebt'][input2]['reportedValue']['raw']
 
-    if B_S['annualNetDebt'] == []:
+    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetDebt'] == []:
         netDebt = 0
-    elif B_S['annualNetDebt'][input2] == None:
+    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetDebt'][input2] == None:
         netDebt = 0
     else:
-        netDebt = B_S['annualNetDebt'][input2]['reportedValue']['raw']
+        netDebt = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetDebt'][input2]['reportedValue']['raw']
 
     #======================
     balance_sheet_statement = {}

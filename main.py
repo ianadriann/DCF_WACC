@@ -36,12 +36,10 @@ json_data = json.loads(script_data[start:-12])
 #location variable of yahoo
 I_S_start = json_data['context']['dispatcher']['stores']
 I_S = I_S_start['QuoteTimeSeriesStore']['timeSeries']
-#I_S_totalOtherIncomeExpensesNet = json_data['context']['dispatcher']['stores']['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
-I_S_totalOtherIncomeExpensesNet = I_S_start['QuoteSummaryStore']['incomeStatementHistory']['incomeStatementHistory']
 
 #lastyear, yearago, years2ago, years3ago
-is_1 = Income_statement.date_is_annual('lastyear', I_S_totalOtherIncomeExpensesNet, I_S, ticker_code)
-is_2 = Income_statement.date_is_annual('yearago', I_S_totalOtherIncomeExpensesNet, I_S, ticker_code)
+is_1 = Income_statement.date_is_annual('lastyear', I_S_start, ticker_code)
+is_2 = Income_statement.date_is_annual('yearago', I_S_start, ticker_code)
 IS = [is_1, is_2]
 
 
@@ -70,11 +68,10 @@ start_balanceSheet = script_data_balanceSheet.find("context")-2
 json_data_balanceSheet = json.loads(script_data_balanceSheet[start_balanceSheet:-12])
 
 B_S_start = json_data_balanceSheet['context']['dispatcher']['stores']
-B_S = B_S_start['QuoteTimeSeriesStore']['timeSeries']
-balanceSheetHistoryQuarterly = B_S_start['QuoteSummaryStore']['balanceSheetHistoryQuarterly']
 
-bs_1 = balancesheet.date_bs_annual('lastyear', I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_code)
-bs_2 = balancesheet.date_bs_annual('yearago', I_S_totalOtherIncomeExpensesNet, B_S, I_S, ticker_code)
+
+bs_1 = balancesheet.date_bs_annual('lastyear', B_S_start, I_S_start, ticker_code)
+bs_2 = balancesheet.date_bs_annual('yearago', B_S_start, I_S_start, ticker_code)
 
 
 BS = [bs_1,bs_2]
@@ -123,7 +120,7 @@ index_SP500 = data.DataReader("^GSPC", start=startdate + timedelta(days=1), end=
 #index_IHSG = data.DataReader("^JKSE", start=start, end=end, data_source='yahoo')['Adj Close']
 cost_of_equity = RFandICA.costofequity(RF, beta, index_SP500)
 
-WACC1 = RFandICA.waccDate(IS, ticker_code, balanceSheetHistoryQuarterly, cost_of_equity, cost_of_debt)
+WACC1 = RFandICA.waccDate(IS, ticker_code, B_S_start, cost_of_equity, cost_of_debt)
 WACC = WACC1[0]
 
 #Net Present Value of the Forecasted Free Cash Flows
@@ -155,6 +152,5 @@ print('the forecast is based on the following assumptions: '+ 'revenue growth: '
 print('perpetuity growth: ' + str(LTGrowth)  )
 print((f'{ticker_code}') + ' forecasted price per stock is ' + str(target_price_per_share) )
 
-print('totalDebt = ',WACC1[1])
 
 
