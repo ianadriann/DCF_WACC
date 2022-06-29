@@ -1,13 +1,9 @@
-from numpy import dtype
-from pyrsistent import b
 import requests
 from bs4 import BeautifulSoup
 import re
 import json
 import pandas as pd
-import pandas_datareader.data as web
 from pandas_datareader import data
-#import datetime
 from datetime import timedelta, date
 import numpy_financial as npf
 import Income_statement
@@ -20,7 +16,7 @@ import RFandICA
 url_financials_is = 'https://finance.yahoo.com/quote/{}/financials?p={}'
 
 #Variable
-ticker_code = 'AAPL' #aapl= 229.69779556090393
+ticker_code = 'AMZN' #aapl= 229.69779556090393
 
 #headers
 headers = { 'User-Agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36' }
@@ -35,7 +31,6 @@ json_data = json.loads(script_data[start:-12])
 
 #location variable of yahoo
 I_S_start = json_data['context']['dispatcher']['stores']
-I_S = I_S_start['QuoteTimeSeriesStore']['timeSeries']
 
 #lastyear, yearago, years2ago, years3ago
 is_1 = Income_statement.date_is_annual('lastyear', I_S_start, ticker_code)
@@ -113,7 +108,7 @@ interest_coverage_ratio = RF_ICA[1]
 cost_of_debt = RFandICA.cost_of_debt(RF, interest_coverage_ratio)
 
 #beta
-beta = json_data['context']['dispatcher']['stores']['QuoteSummaryStore']['summaryDetail']['beta']['raw']
+beta = I_S_start['QuoteSummaryStore']['summaryDetail']['beta']['raw']
 
 #index
 index_SP500 = data.DataReader("^GSPC", start=startdate + timedelta(days=1), end=enddate, data_source='yahoo')['Adj Close']
@@ -136,7 +131,7 @@ Terminal_value_Discounted = Terminal_value/(1+WACC)**4
 target_equity_value = Terminal_value_Discounted + npv
 debt = balance_sheet['current_year']['totalDebt']
 target_value = target_equity_value - debt
-numbre_of_shares = I_S['annualBasicAverageShares'][-1]['reportedValue']['raw']
+numbre_of_shares = I_S_start['QuoteTimeSeriesStore']['timeSeries']['annualBasicAverageShares'][-1]['reportedValue']['raw']
 target_price_per_share = target_value/numbre_of_shares
 
 print('revenue_g = ', revenue_g)
@@ -151,6 +146,8 @@ print('='*20)
 print('the forecast is based on the following assumptions: '+ 'revenue growth: ' + str(revenue_g) + ' Cost of Capital: ' + str(WACC) )
 print('perpetuity growth: ' + str(LTGrowth)  )
 print((f'{ticker_code}') + ' forecasted price per stock is ' + str(target_price_per_share) )
+
+
 
 
 

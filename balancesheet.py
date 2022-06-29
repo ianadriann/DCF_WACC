@@ -1,6 +1,4 @@
 
-
-
 def date_bs_annual(input1, B_S_start, I_S_start, ticker_code):
     if input1 == 'lastyear':
         year = 0
@@ -72,12 +70,12 @@ def date_bs_annual(input1, B_S_start, I_S_start, ticker_code):
     else:
         totalCurrentAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentAssets'][input2]['reportedValue']['raw']
 
-    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'] == []:
+    if B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'] == []:
         propertyPlantEquipmentNet = 0
-    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'][input2] == None:
+    elif B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year] == None:
         propertyPlantEquipmentNet = 0
     else:
-        propertyPlantEquipmentNet = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualNetPPE'][input2]['reportedValue']['raw']
+        propertyPlantEquipmentNet = B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year]['propertyPlantEquipment']['raw']
 
     if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualGoodwill'] == []:
         goodwill = 0
@@ -142,12 +140,12 @@ def date_bs_annual(input1, B_S_start, I_S_start, ticker_code):
     else:
         totalAssets = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualTotalAssets'][input2]['reportedValue']['raw']
 
-    if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'] == []:
+    if B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'] == []:
         accountPayables = 0
-    elif B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'][input2] == None:
+    elif B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year] == None:
         accountPayables = 0
     else:
-        accountPayables = B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualAccountsPayable'][input2]['reportedValue']['raw']
+        accountPayables = B_S_start['QuoteSummaryStore']['balanceSheetHistory']['balanceSheetStatements'][year]['accountsPayable']['raw']
 
     if B_S_start['QuoteTimeSeriesStore']['timeSeries']['annualCurrentDebtAndCapitalLeaseObligation'] == []:
         shortTermDebt = 0
