@@ -16,7 +16,7 @@ import RFandICA
 url_financials_is = 'https://finance.yahoo.com/quote/{}/financials?p={}'
 
 #Variable
-ticker_code = 'AMZN' #aapl= 229.69779556090393
+ticker_code = 'AAPL' #aapl= 229.69779556090393
 
 #headers
 headers = { 'User-Agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36' }
@@ -147,7 +147,10 @@ print('the forecast is based on the following assumptions: '+ 'revenue growth: '
 print('perpetuity growth: ' + str(LTGrowth)  )
 print((f'{ticker_code}') + ' forecasted price per stock is ' + str(target_price_per_share) )
 
-
+EBIT= IS[0]['ebitda'] - IS[0]['depreciationAndAmortization']
+interest_expense = IS[0]['interestExpense']
+interest_coverage_ratio = EBIT / interest_expense
+print(EBIT, interest_expense, interest_coverage_ratio)
 
 
 
