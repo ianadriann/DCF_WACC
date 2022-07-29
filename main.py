@@ -16,7 +16,11 @@ import RFandICA
 url_financials_is = 'https://finance.yahoo.com/quote/{}/financials?p={}'
 
 #Variable
-ticker_code = 'AAPL' #aapl= 229.69779556090393
+def tickerName(ticker):
+    tickercode = ticker
+    return tickercode
+
+ticker_code = tickerName('AAPL') #aapl= 229.69779556090393
 
 #headers
 headers = { 'User-Agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36' }
@@ -133,7 +137,7 @@ debt = balance_sheet['current_year']['totalDebt']
 target_value = target_equity_value - debt
 numbre_of_shares = I_S_start['QuoteTimeSeriesStore']['timeSeries']['annualBasicAverageShares'][-1]['reportedValue']['raw']
 target_price_per_share = target_value/numbre_of_shares
-
+'''
 print('revenue_g = ', revenue_g)
 print('RF = ', RF)
 print('cost_of_debt = ', cost_of_debt)
@@ -145,12 +149,19 @@ print('Terminal_value_Discounted =', Terminal_value_Discounted)
 print('='*20)
 print('the forecast is based on the following assumptions: '+ 'revenue growth: ' + str(revenue_g) + ' Cost of Capital: ' + str(WACC) )
 print('perpetuity growth: ' + str(LTGrowth)  )
+'''
 print((f'{ticker_code}') + ' forecasted price per stock is ' + str(target_price_per_share) )
 
+
+'''
 EBIT= IS[0]['ebitda'] - IS[0]['depreciationAndAmortization']
 interest_expense = IS[0]['interestExpense']
 interest_coverage_ratio = EBIT / interest_expense
+'''
+
+
+'''
 print(EBIT, interest_expense, interest_coverage_ratio)
 
-
+'''
 

@@ -92,7 +92,7 @@ def waccDate(IS, ticker_code, B_S_start, cost_of_equity, cost_of_debt):
     ticker= yf.Ticker(ticker_code)
     info_comp = ticker.info
     totalDebt = info_comp['totalDebt']
-    totalStockholdersEquity = B_S_start['QuoteSummaryStore']['balanceSheetHistoryQuarterly']['balanceSheetStatements'][0]['totalStockholderEquity']['raw']
+    totalStockholdersEquity = B_S_start['QuoteSummaryStore']['balanceSheetHistoryQuarterly']['balanceSheetStatements'][1]['totalStockholderEquity']['raw']
     Debt_to = totalDebt / (totalDebt + totalStockholdersEquity)
     equity_to = totalStockholdersEquity / (totalDebt + totalStockholdersEquity)
 
